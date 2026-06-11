@@ -1,23 +1,23 @@
 {
   "meta": {
-    "totalDraws": 1918,
+    "totalDraws": 1919,
     "firstPeriod": 97000001,
     "firstDate": "2008-01-24",
-    "lastPeriod": 115000046,
-    "lastDate": "2026-06-08",
+    "lastPeriod": 115000047,
+    "lastDate": "2026-06-11",
     "zone1Theory": 15.79,
     "zone2Theory": 12.5,
     "lastDraw": {
-      "period": 115000046,
+      "period": 115000047,
       "zone1": [
-        5,
         7,
-        14,
-        25,
-        28,
-        38
+        22,
+        23,
+        24,
+        26,
+        33
       ],
-      "zone2": 5
+      "zone2": 8
     }
   },
   "zone1": [
@@ -26,316 +26,316 @@
       "count": 311,
       "prob": 16.21,
       "ballProb": 2.7,
-      "lastGap": 3
+      "lastGap": 4
     },
     {
       "num": 2,
       "count": 278,
       "prob": 14.49,
-      "ballProb": 2.42,
-      "lastGap": 3
+      "ballProb": 2.41,
+      "lastGap": 4
     },
     {
       "num": 3,
       "count": 330,
-      "prob": 17.21,
+      "prob": 17.2,
       "ballProb": 2.87,
-      "lastGap": 2
+      "lastGap": 3
     },
     {
       "num": 4,
       "count": 320,
       "prob": 16.68,
       "ballProb": 2.78,
-      "lastGap": 11
+      "lastGap": 12
     },
     {
       "num": 5,
       "count": 274,
-      "prob": 14.29,
+      "prob": 14.28,
       "ballProb": 2.38,
-      "lastGap": 0
+      "lastGap": 1
     },
     {
       "num": 6,
       "count": 309,
-      "prob": 16.11,
-      "ballProb": 2.69,
-      "lastGap": 5
+      "prob": 16.1,
+      "ballProb": 2.68,
+      "lastGap": 6
     },
     {
       "num": 7,
-      "count": 317,
-      "prob": 16.53,
-      "ballProb": 2.75,
+      "count": 318,
+      "prob": 16.57,
+      "ballProb": 2.76,
       "lastGap": 0
     },
     {
       "num": 8,
       "count": 309,
-      "prob": 16.11,
-      "ballProb": 2.69,
-      "lastGap": 2
+      "prob": 16.1,
+      "ballProb": 2.68,
+      "lastGap": 3
     },
     {
       "num": 9,
       "count": 266,
-      "prob": 13.87,
+      "prob": 13.86,
       "ballProb": 2.31,
-      "lastGap": 1
+      "lastGap": 2
     },
     {
       "num": 10,
       "count": 307,
-      "prob": 16.01,
+      "prob": 16.0,
       "ballProb": 2.67,
-      "lastGap": 13
+      "lastGap": 14
     },
     {
       "num": 11,
       "count": 303,
-      "prob": 15.8,
+      "prob": 15.79,
       "ballProb": 2.63,
-      "lastGap": 15
+      "lastGap": 16
     },
     {
       "num": 12,
       "count": 296,
-      "prob": 15.43,
+      "prob": 15.42,
       "ballProb": 2.57,
-      "lastGap": 1
+      "lastGap": 2
     },
     {
       "num": 13,
       "count": 293,
-      "prob": 15.28,
-      "ballProb": 2.55,
-      "lastGap": 11
+      "prob": 15.27,
+      "ballProb": 2.54,
+      "lastGap": 12
     },
     {
       "num": 14,
       "count": 326,
-      "prob": 17.0,
+      "prob": 16.99,
       "ballProb": 2.83,
-      "lastGap": 0
+      "lastGap": 1
     },
     {
       "num": 15,
       "count": 321,
-      "prob": 16.74,
+      "prob": 16.73,
       "ballProb": 2.79,
-      "lastGap": 2
+      "lastGap": 3
     },
     {
       "num": 16,
       "count": 314,
-      "prob": 16.37,
+      "prob": 16.36,
       "ballProb": 2.73,
-      "lastGap": 13
+      "lastGap": 14
     },
     {
       "num": 17,
       "count": 305,
-      "prob": 15.9,
+      "prob": 15.89,
       "ballProb": 2.65,
-      "lastGap": 1
+      "lastGap": 2
     },
     {
       "num": 18,
       "count": 290,
-      "prob": 15.12,
+      "prob": 15.11,
       "ballProb": 2.52,
-      "lastGap": 22
+      "lastGap": 23
     },
     {
       "num": 19,
       "count": 313,
-      "prob": 16.32,
+      "prob": 16.31,
       "ballProb": 2.72,
-      "lastGap": 8
+      "lastGap": 9
     },
     {
       "num": 20,
       "count": 302,
-      "prob": 15.75,
+      "prob": 15.74,
       "ballProb": 2.62,
-      "lastGap": 1
+      "lastGap": 2
     },
     {
       "num": 21,
       "count": 290,
-      "prob": 15.12,
+      "prob": 15.11,
       "ballProb": 2.52,
-      "lastGap": 4
-    },
-    {
-      "num": 22,
-      "count": 315,
-      "prob": 16.42,
-      "ballProb": 2.74,
       "lastGap": 5
     },
     {
+      "num": 22,
+      "count": 316,
+      "prob": 16.47,
+      "ballProb": 2.74,
+      "lastGap": 0
+    },
+    {
       "num": 23,
-      "count": 297,
-      "prob": 15.48,
-      "ballProb": 2.58,
-      "lastGap": 8
+      "count": 298,
+      "prob": 15.53,
+      "ballProb": 2.59,
+      "lastGap": 0
     },
     {
       "num": 24,
-      "count": 336,
-      "prob": 17.52,
-      "ballProb": 2.92,
-      "lastGap": 2
+      "count": 337,
+      "prob": 17.56,
+      "ballProb": 2.93,
+      "lastGap": 0
     },
     {
       "num": 25,
       "count": 307,
-      "prob": 16.01,
+      "prob": 16.0,
       "ballProb": 2.67,
-      "lastGap": 0
+      "lastGap": 1
     },
     {
       "num": 26,
-      "count": 311,
-      "prob": 16.21,
-      "ballProb": 2.7,
-      "lastGap": 8
+      "count": 312,
+      "prob": 16.26,
+      "ballProb": 2.71,
+      "lastGap": 0
     },
     {
       "num": 27,
       "count": 302,
-      "prob": 15.75,
+      "prob": 15.74,
       "ballProb": 2.62,
-      "lastGap": 11
+      "lastGap": 12
     },
     {
       "num": 28,
       "count": 289,
-      "prob": 15.07,
+      "prob": 15.06,
       "ballProb": 2.51,
-      "lastGap": 0
+      "lastGap": 1
     },
     {
       "num": 29,
       "count": 311,
       "prob": 16.21,
       "ballProb": 2.7,
-      "lastGap": 6
+      "lastGap": 7
     },
     {
       "num": 30,
       "count": 286,
-      "prob": 14.91,
-      "ballProb": 2.49,
-      "lastGap": 11
+      "prob": 14.9,
+      "ballProb": 2.48,
+      "lastGap": 12
     },
     {
       "num": 31,
       "count": 300,
-      "prob": 15.64,
+      "prob": 15.63,
       "ballProb": 2.61,
-      "lastGap": 3
+      "lastGap": 4
     },
     {
       "num": 32,
       "count": 277,
-      "prob": 14.44,
+      "prob": 14.43,
       "ballProb": 2.41,
-      "lastGap": 10
+      "lastGap": 11
     },
     {
       "num": 33,
-      "count": 285,
-      "prob": 14.86,
+      "count": 286,
+      "prob": 14.9,
       "ballProb": 2.48,
-      "lastGap": 4
+      "lastGap": 0
     },
     {
       "num": 34,
       "count": 281,
-      "prob": 14.65,
+      "prob": 14.64,
       "ballProb": 2.44,
-      "lastGap": 3
+      "lastGap": 4
     },
     {
       "num": 35,
       "count": 302,
-      "prob": 15.75,
+      "prob": 15.74,
       "ballProb": 2.62,
-      "lastGap": 1
+      "lastGap": 2
     },
     {
       "num": 36,
       "count": 298,
-      "prob": 15.54,
+      "prob": 15.53,
       "ballProb": 2.59,
-      "lastGap": 10
+      "lastGap": 11
     },
     {
       "num": 37,
       "count": 305,
-      "prob": 15.9,
+      "prob": 15.89,
       "ballProb": 2.65,
-      "lastGap": 14
+      "lastGap": 15
     },
     {
       "num": 38,
       "count": 332,
-      "prob": 17.31,
+      "prob": 17.3,
       "ballProb": 2.88,
-      "lastGap": 0
+      "lastGap": 1
     }
   ],
   "zone2": [
     {
       "num": 1,
       "count": 227,
-      "prob": 11.84,
-      "lastGap": 5
+      "prob": 11.83,
+      "lastGap": 6
     },
     {
       "num": 2,
       "count": 271,
-      "prob": 14.13,
-      "lastGap": 1
+      "prob": 14.12,
+      "lastGap": 2
     },
     {
       "num": 3,
       "count": 239,
-      "prob": 12.46,
-      "lastGap": 3
+      "prob": 12.45,
+      "lastGap": 4
     },
     {
       "num": 4,
       "count": 248,
-      "prob": 12.93,
-      "lastGap": 2
+      "prob": 12.92,
+      "lastGap": 3
     },
     {
       "num": 5,
       "count": 260,
-      "prob": 13.56,
-      "lastGap": 0
+      "prob": 13.55,
+      "lastGap": 1
     },
     {
       "num": 6,
       "count": 219,
-      "prob": 11.42,
-      "lastGap": 15
+      "prob": 11.41,
+      "lastGap": 16
     },
     {
       "num": 7,
       "count": 225,
-      "prob": 11.73,
-      "lastGap": 35
+      "prob": 11.72,
+      "lastGap": 36
     },
     {
       "num": 8,
-      "count": 229,
-      "prob": 11.94,
-      "lastGap": 7
+      "count": 230,
+      "prob": 11.99,
+      "lastGap": 0
     }
   ],
   "analysis": {
@@ -369,7 +369,7 @@
     "recentHotZone1": [
       9,
       14,
-      29,
+      25,
       34,
       35,
       38
@@ -380,7 +380,7 @@
       "0": 21,
       "1": 153,
       "2": 455,
-      "3": 676,
+      "3": 677,
       "4": 440,
       "5": 157,
       "6": 16
@@ -391,7 +391,7 @@
       "2": 466,
       "3": 660,
       "4": 464,
-      "5": 138,
+      "5": 139,
       "6": 19
     }
   },
@@ -424,7 +424,7 @@
       "zone1": [
         9,
         14,
-        29,
+        25,
         34,
         35,
         38
@@ -436,7 +436,7 @@
       "zone1": [
         9,
         14,
-        29,
+        22,
         34,
         35,
         38

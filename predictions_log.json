@@ -59,6 +59,106 @@
         "desc": "歷史頻率(60%) + 近期趨勢(40%) 加權混合"
       }
     },
+    "actual": {
+      "zone1": [
+        7,
+        22,
+        23,
+        24,
+        26,
+        33
+      ],
+      "zone2": 8,
+      "date": "2026-06-11"
+    },
+    "results": {
+      "frequency": {
+        "m1": 1,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      },
+      "overdue": {
+        "m1": 0,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      },
+      "recent": {
+        "m1": 0,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      },
+      "mixed": {
+        "m1": 0,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      }
+    },
+    "verified": true
+  },
+  {
+    "targetPeriod": 115000048,
+    "expectedDrawDate": "2026-06-15",
+    "lockedAt": "2026-06-11T22:02:14+08:00",
+    "basedOnPeriods": 1919,
+    "basedOnLastPeriod": 115000047,
+    "predictions": {
+      "frequency": {
+        "zone1": [
+          3,
+          4,
+          14,
+          15,
+          24,
+          38
+        ],
+        "zone2": 2,
+        "name": "頻率法",
+        "desc": "歷史出現頻率最高的號碼"
+      },
+      "overdue": {
+        "zone1": [
+          4,
+          10,
+          11,
+          16,
+          18,
+          37
+        ],
+        "zone2": 7,
+        "name": "冷號回補法",
+        "desc": "遺漏期數最久、理論上「該開」的號碼"
+      },
+      "recent": {
+        "zone1": [
+          9,
+          14,
+          25,
+          34,
+          35,
+          38
+        ],
+        "zone2": 5,
+        "name": "近期趨勢法",
+        "desc": "最近 50 期最常開出的號碼"
+      },
+      "mixed": {
+        "zone1": [
+          9,
+          14,
+          22,
+          34,
+          35,
+          38
+        ],
+        "zone2": 5,
+        "name": "加權混合法",
+        "desc": "歷史頻率(60%) + 近期趨勢(40%) 加權混合"
+      }
+    },
     "actual": null,
     "results": null,
     "verified": false
