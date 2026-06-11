@@ -38,6 +38,33 @@ section .hint{color:var(--muted); font-size:.85rem; margin-bottom:18px}
   border-radius:10px; padding:14px 18px; margin-top:24px; font-size:.85rem; color:#ffb3b5}
 .disclaimer b{color:var(--red)}
 
+/* 密碼門 */
+#gate{position:fixed; inset:0; z-index:9999; background:#0d1117;
+  display:flex; align-items:center; justify-content:center; padding:24px;
+  background-image:radial-gradient(circle at 20% 0%,rgba(245,179,1,.08),transparent 45%),
+                   radial-gradient(circle at 80% 10%,rgba(229,72,77,.08),transparent 45%);}
+#gate .gate-card{background:var(--panel); border:1px solid var(--border); border-radius:16px;
+  padding:36px 32px; width:100%; max-width:360px; text-align:center;
+  box-shadow:0 12px 40px rgba(0,0,0,.5)}
+#gate .gate-ic{font-size:2.6rem; margin-bottom:10px}
+#gate h2{font-size:1.3rem; font-weight:800; margin-bottom:6px;
+  background:linear-gradient(135deg,var(--gold),var(--red));
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent}
+#gate p{color:var(--muted); font-size:.85rem; margin-bottom:20px}
+#gate input{width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--border);
+  background:var(--bg); color:var(--text); font-size:1rem; text-align:center; outline:none;
+  transition:border-color .2s}
+#gate input:focus{border-color:var(--gold)}
+#gate button{width:100%; margin-top:14px; padding:12px; border:none; border-radius:10px;
+  background:linear-gradient(135deg,var(--gold),var(--red)); color:#1a1200; font-weight:800;
+  font-size:1rem; cursor:pointer; transition:transform .1s,opacity .2s}
+#gate button:hover{opacity:.92}
+#gate button:active{transform:scale(.98)}
+#gate .gate-err{color:var(--red); font-size:.82rem; margin-top:12px; min-height:18px;
+  opacity:0; transition:opacity .2s}
+#gate .gate-err.show{opacity:1}
+.gate-locked{overflow:hidden; height:100vh}
+
 /* 最新開獎 */
 .latest{display:flex; flex-wrap:wrap; align-items:center; gap:14px; justify-content:center}
 .ball{width:44px; height:44px; border-radius:50%; display:flex; align-items:center;
@@ -96,6 +123,16 @@ footer a{color:var(--blue); text-decoration:none}
 </style>
 </head>
 <body>
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-ic">🔒</div>
+    <h2>威力彩號碼機率分析</h2>
+    <p>本站需要密碼才能進入</p>
+    <input id="gate-pw" type="password" placeholder="請輸入密碼" autocomplete="off" autofocus>
+    <button id="gate-go">進入</button>
+    <div class="gate-err" id="gate-err"></div>
+  </div>
+</div>
 <div class="wrap">
 <header>
   <h1>🎱 威力彩號碼機率分析</h1>
@@ -112,7 +149,74 @@ footer a{color:var(--blue); text-decoration:none}
   <p style="margin-top:6px">本網站僅供統計研究與娛樂，樂透為獨立隨機事件，過往機率<b>不能</b>預測未來開獎結果。理性購彩，量力而為。</p>
 </footer>
 </div>
-<script src="stats.js"></script>
-<script src="app.js"></script>
+<script>
+(function(){
+  // 密碼門：repo 僅存 SHA-256 雜湊，不存明文密碼
+  var HASH = "88c0b7cc68a4e06c46939c402b7adc73a8826285879cd73810ab0408d70c44fc";
+  var KEY  = "superlotto_auth_v1";
+  var gate = document.getElementById("gate");
+  var input= document.getElementById("gate-pw");
+  var btn  = document.getElementById("gate-go");
+  var err  = document.getElementById("gate-err");
+  var loaded = false;
+
+  async function sha256(str){
+    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(function(b){
+      return b.toString(16).padStart(2,"0");
+    }).join("");
+  }
+
+  function loadApp(){
+    if(loaded) return; loaded = true;
+    ["stats.js","app.js"].reduce(function(p,src){
+      return p.then(function(){
+        return new Promise(function(res,rej){
+          var s=document.createElement("script");
+          s.src=src; s.onload=res; s.onerror=rej;
+          document.body.appendChild(s);
+        });
+      });
+    }, Promise.resolve());
+  }
+
+  function unlock(){
+    gate.style.display="none";
+    document.documentElement.classList.remove("gate-locked");
+    document.body.classList.remove("gate-locked");
+    loadApp();
+  }
+
+  function showErr(msg){
+    err.textContent = msg; err.classList.add("show");
+    input.value=""; input.focus();
+  }
+
+  async function tryUnlock(){
+    var v = input.value;
+    if(!v){ showErr("請輸入密碼"); return; }
+    var h = await sha256(v);
+    if(h === HASH){
+      try{ sessionStorage.setItem(KEY, "1"); }catch(e){}
+      unlock();
+    } else {
+      showErr("密碼錯誤，請重新輸入");
+    }
+  }
+
+  // 已驗證過（同分頁）直接放行
+  try{ if(sessionStorage.getItem(KEY)==="1"){ unlock(); } }catch(e){}
+
+  btn.addEventListener("click", tryUnlock);
+  input.addEventListener("keydown", function(e){
+    if(e.key==="Enter"){ e.preventDefault(); tryUnlock(); }
+  });
+  if(gate.style.display!=="none"){
+    document.documentElement.classList.add("gate-locked");
+    document.body.classList.add("gate-locked");
+    input.focus();
+  }
+})();
+</script>
 </body>
 </html>
