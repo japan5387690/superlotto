@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>威力彩號碼機率分析與預測</title>
+<meta name="description" content="台灣彩券威力彩歷史開獎號碼機率統計分析，含冷熱號、遺漏值與下期號碼預測。基於 2008 年至今全部開獎資料。">
+<style>
+:root{
+  --bg:#0d1117; --panel:#161b22; --panel2:#1c2230; --border:#30363d;
+  --text:#e6edf3; --muted:#8b949e; --gold:#f5b301; --red:#e5484d;
+  --blue:#4493f8; --green:#3fb950; --purple:#bc8cff;
+  --z1:#e5484d; --z2:#f5b301;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,"Segoe UI","Microsoft JhengHei","PingFang TC",sans-serif;
+  background:var(--bg); color:var(--text); line-height:1.6;
+  background-image:radial-gradient(circle at 20% 0%,rgba(245,179,1,.06),transparent 40%),
+                   radial-gradient(circle at 80% 10%,rgba(229,72,77,.06),transparent 40%);
+}
+.wrap{max-width:1100px; margin:0 auto; padding:0 16px 60px}
+header{text-align:center; padding:48px 16px 32px}
+header h1{font-size:2.1rem; font-weight:800; letter-spacing:1px;
+  background:linear-gradient(135deg,var(--gold),var(--red));
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+header .sub{color:var(--muted); margin-top:10px; font-size:.95rem}
+.meta-bar{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:20px}
+.meta-chip{background:var(--panel); border:1px solid var(--border); border-radius:20px;
+  padding:6px 16px; font-size:.85rem; color:var(--muted)}
+.meta-chip b{color:var(--gold); font-weight:700}
+section{background:var(--panel); border:1px solid var(--border); border-radius:14px;
+  padding:24px; margin-top:24px}
+section h2{font-size:1.3rem; margin-bottom:6px; display:flex; align-items:center; gap:10px}
+section h2 .bar{width:4px; height:22px; border-radius:2px; background:var(--gold)}
+section .hint{color:var(--muted); font-size:.85rem; margin-bottom:18px}
+.disclaimer{background:rgba(229,72,77,.08); border:1px solid rgba(229,72,77,.3);
+  border-radius:10px; padding:14px 18px; margin-top:24px; font-size:.85rem; color:#ffb3b5}
+.disclaimer b{color:var(--red)}
+
+/* 最新開獎 */
+.latest{display:flex; flex-wrap:wrap; align-items:center; gap:14px; justify-content:center}
+.ball{width:44px; height:44px; border-radius:50%; display:flex; align-items:center;
+  justify-content:center; font-weight:800; font-size:1.1rem; color:#fff; flex-shrink:0;
+  box-shadow:inset 0 -3px 6px rgba(0,0,0,.3), 0 2px 6px rgba(0,0,0,.4)}
+.ball.z1{background:radial-gradient(circle at 35% 30%,#ff6b6f,var(--z1))}
+.ball.z2{background:radial-gradient(circle at 35% 30%,#ffd24d,var(--gold)); color:#3a2c00}
+.ball.sm{width:34px; height:34px; font-size:.9rem}
+.plus{color:var(--muted); font-size:1.5rem; font-weight:300}
+
+/* 機率長條 */
+.chart{margin-top:10px}
+.row{display:flex; align-items:center; gap:10px; margin:3px 0}
+.row .lbl{width:30px; text-align:right; font-variant-numeric:tabular-nums;
+  font-weight:700; font-size:.9rem; color:var(--muted)}
+.row .track{flex:1; background:var(--panel2); border-radius:6px; height:22px; position:relative; overflow:hidden}
+.row .fill{height:100%; border-radius:6px; transition:width .8s cubic-bezier(.2,.8,.2,1);
+  background:linear-gradient(90deg,#b3373b,var(--z1))}
+.row.z2 .fill{background:linear-gradient(90deg,#caa000,var(--gold))}
+.row .val{position:absolute; right:8px; top:50%; transform:translateY(-50%);
+  font-size:.78rem; font-weight:700; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.row .pct{width:56px; font-size:.8rem; color:var(--muted); font-variant-numeric:tabular-nums}
+.theory-line{font-size:.82rem; color:var(--blue); margin:10px 0 4px}
+
+/* 冷熱號網格 */
+.grid-nums{display:grid; grid-template-columns:repeat(auto-fill,minmax(46px,1fr)); gap:8px; margin-top:8px}
+.numbox{aspect-ratio:1; border-radius:10px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; border:1px solid var(--border);
+  background:var(--panel2); position:relative; transition:transform .15s}
+.numbox:hover{transform:translateY(-2px)}
+.numbox .n{font-weight:800; font-size:1.05rem}
+.numbox .c{font-size:.65rem; color:var(--muted)}
+
+/* 預測卡片 */
+.pred-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-top:8px}
+.pred-card{background:var(--panel2); border:1px solid var(--border); border-radius:12px; padding:18px; position:relative}
+.pred-card.featured{border-color:var(--gold); box-shadow:0 0 0 1px var(--gold),0 4px 20px rgba(245,179,1,.15)}
+.pred-card .tag{font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--gold)}
+.pred-card .name{font-size:1.05rem; font-weight:700; margin:4px 0 12px}
+.pred-card .balls{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+.pred-card .desc{font-size:.78rem; color:var(--muted); margin-top:12px}
+.badge{position:absolute; top:-10px; right:14px; background:var(--gold); color:#3a2c00;
+  font-size:.7rem; font-weight:800; padding:3px 10px; border-radius:10px}
+
+footer{text-align:center; color:var(--muted); font-size:.8rem; margin-top:40px; padding-top:20px; border-top:1px solid var(--border)}
+footer a{color:var(--blue); text-decoration:none}
+.tabs{display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap}
+.tab{background:var(--panel2); border:1px solid var(--border); color:var(--muted);
+  padding:7px 16px; border-radius:8px; cursor:pointer; font-size:.88rem; transition:all .15s}
+.tab.active{background:var(--gold); color:#3a2c00; border-color:var(--gold); font-weight:700}
+.stat-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-top:8px}
+.stat-box{background:var(--panel2); border:1px solid var(--border); border-radius:10px; padding:16px; text-align:center}
+.stat-box .v{font-size:1.6rem; font-weight:800; color:var(--gold)}
+.stat-box .k{font-size:.8rem; color:var(--muted); margin-top:4px}
+@media(max-width:600px){header h1{font-size:1.6rem} .ball{width:38px;height:38px;font-size:1rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>🎱 威力彩號碼機率分析</h1>
+  <div class="sub">基於台灣彩券 <b id="m-first"></b> 至 <b id="m-last"></b> 全部開獎資料的統計與預測</div>
+  <div class="meta-bar">
+    <span class="meta-chip">總期數 <b id="m-total"></b></span>
+    <span class="meta-chip">最新期別 <b id="m-period"></b></span>
+    <span class="meta-chip">資料來源 <b>台灣彩券官方</b></span>
+  </div>
+</header>
+<main id="app"></main>
+<footer>
+  <p>資料來源：台灣彩券股份有限公司官方 API · 統計截至 <span id="f-date"></span></p>
+  <p style="margin-top:6px">本網站僅供統計研究與娛樂，樂透為獨立隨機事件，過往機率<b>不能</b>預測未來開獎結果。理性購彩，量力而為。</p>
+</footer>
+</div>
+<script src="stats.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
