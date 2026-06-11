@@ -173,10 +173,131 @@ function sectionHistory() {
   </section>`;
 }
 
+// ========== 預測驗證系統 ==========
+
+// ---------- 本期鎖定預測 (尚未開獎) ----------
+function sectionLockedPrediction() {
+  const log = window.PREDICTIONS_LOG || [];
+  const pending = log.filter((e) => !e.verified);
+  if (!pending.length) return "";
+  const e = pending[pending.length - 1];
+  const cards = Object.entries(e.predictions)
+    .map(([k, p]) => {
+      const z1 = p.zone1.map((n) => ball(n, "z1", true)).join("");
+      const z2 = ball(p.zone2, "z2", true);
+      return `<div class="pred-card">
+        <div class="tag">${p.name}</div>
+        <div class="balls" style="margin-top:8px">${z1}<span class="plus" style="font-size:1.1rem">+</span>${z2}</div>
+      </div>`;
+    })
+    .join("");
+  return `<section style="border-color:var(--green);box-shadow:0 0 0 1px rgba(63,185,80,.3)">
+    <h2><span class="bar" style="background:var(--green)"></span>🔒 本期鎖定預測（待開獎驗證）</h2>
+    <div class="hint">第 <b style="color:var(--green)">${e.targetPeriod}</b> 期 · 預計 ${e.expectedDrawDate} 開獎 ·
+      已於 <b>${e.lockedAt.replace("T", " ").slice(0, 16)}</b> 鎖定（基於前 ${e.basedOnPeriods} 期資料）</div>
+    <div style="background:rgba(63,185,80,.08);border:1px solid rgba(63,185,80,.3);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:.82rem;color:#7ee787">
+      ⏱️ 此預測在開獎<b>前</b>就已鎖定時間戳記，開獎後將自動比對——這是<b>誠實驗證</b>，非事後諸葛。
+    </div>
+    <div class="pred-grid">${cards}</div>
+  </section>`;
+}
+
+// ---------- 回測排行榜 (策略真實命中率 vs 隨機) ----------
+function sectionBacktest() {
+  const bt = window.BACKTEST;
+  if (!bt || !bt.strategies) return "";
+  const rnd = bt.randomBaseline;
+  const maxRate = Math.max(...bt.strategies.map((s) => s.anyPrizeRate), rnd.anyPrizeRate);
+
+  function barRow(s, isRandom) {
+    const w = (s.anyPrizeRate / maxRate) * 100;
+    const color = isRandom ? "var(--muted)" : "var(--green)";
+    const prizeStr = Object.entries(s.prizeCounts || {})
+      .map(([k, v]) => `${k}×${v}`)
+      .join("、") || "—";
+    return `<div style="margin:10px 0">
+      <div style="display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:3px">
+        <span style="font-weight:700;color:${isRandom ? "var(--muted)" : "var(--text)"}">${isRandom ? "🎲 " : ""}${s.name}</span>
+        <span style="color:${color};font-weight:700">${s.anyPrizeRate}%</span>
+      </div>
+      <div class="track" style="height:18px"><div class="fill" style="width:${w}%;background:linear-gradient(90deg,${isRandom ? "#555,#777" : "#2a8a3f,var(--green)"})"></div></div>
+      <div style="font-size:.72rem;color:var(--muted);margin-top:3px">中獎 ${s.anyPrizeCount} 次 · 第一區平均對中 ${s.avgZone1Hit} 個 · 獎項：${prizeStr}</div>
+    </div>`;
+  }
+
+  const rows = bt.strategies.map((s) => barRow(s, false)).join("") + barRow(rnd, true);
+
+  return `<section>
+    <h2><span class="bar" style="background:var(--blue)"></span>📊 策略回測：到底準不準？</h2>
+    <div class="hint">${bt.meta.method}。回測 ${bt.meta.backtestPeriods} 期（第 ${bt.meta.startPeriod}～${bt.meta.endPeriod} 期），
+      統計每種策略<b>實際</b>會中獎幾次。</div>
+    ${rows}
+    <div class="disclaimer" style="margin-top:18px">
+      <b>🔬 統計真相：</b>四種策略的中獎率與「隨機亂猜」幾乎相同（差距在統計雜訊內）。
+      這用 ${bt.meta.backtestPeriods} 期實證了 —— <b>樂透是獨立隨機事件，任何基於歷史頻率的策略都無法穩定打敗亂猜</b>。
+      所謂「預測」僅供娛樂，請勿當真。
+    </div>
+  </section>`;
+}
+
+// ---------- 已驗證歷史 ----------
+function sectionVerifiedHistory() {
+  const log = window.PREDICTIONS_LOG || [];
+  const done = log.filter((e) => e.verified && e.results).reverse();
+  if (!done.length) {
+    return `<section>
+      <h2><span class="bar" style="background:var(--gold)"></span>✅ 預測驗證紀錄</h2>
+      <div class="hint">每期開獎後，系統會自動比對鎖定的預測與實際號碼。</div>
+      <div style="text-align:center;padding:30px;color:var(--muted)">
+        尚無已驗證紀錄。本期預測鎖定後，開獎即會自動比對並顯示於此。
+      </div>
+    </section>`;
+  }
+  const items = done
+    .map((e) => {
+      const a = e.actual;
+      const actualBalls =
+        a.zone1.map((n) => ball(n, "z1", true)).join("") +
+        `<span class="plus" style="font-size:1rem">+</span>` +
+        ball(a.zone2, "z2", true);
+      const rows = Object.entries(e.predictions)
+        .map(([k, p]) => {
+          const r = e.results[k];
+          const hit = r.prize
+            ? `<span style="color:var(--green);font-weight:700">🎉 ${r.prize}</span>`
+            : `<span style="color:var(--muted)">未中獎</span>`;
+          return `<div style="display:flex;justify-content:space-between;font-size:.82rem;padding:4px 0">
+            <span>${p.name}</span>
+            <span>第一區中 <b>${r.m1}</b>、第二區${r.m2 ? "✓" : "✗"} ${hit}</span>
+          </div>`;
+        })
+        .join("");
+      return `<div style="background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+          <span style="font-weight:700">第 ${e.targetPeriod} 期</span>
+          <span style="color:var(--muted);font-size:.8rem">${a.date} 開獎</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+          <span style="font-size:.8rem;color:var(--muted);width:60px">實際：</span>${actualBalls}
+        </div>
+        ${rows}
+      </div>`;
+    })
+    .join("");
+  return `<section>
+    <h2><span class="bar" style="background:var(--gold)"></span>✅ 預測驗證紀錄</h2>
+    <div class="hint">開獎後自動比對「事前鎖定」的預測與實際號碼，共 ${done.length} 期已驗證。</div>
+    ${items}
+  </section>`;
+}
+
 // ---------- render ----------
 app.innerHTML =
   sectionLatest() +
+  sectionLockedPrediction() +
   sectionPredict() +
+  sectionBacktest() +
+  sectionVerifiedHistory() +
   sectionProb() +
   sectionAnalysis() +
   sectionStats() +

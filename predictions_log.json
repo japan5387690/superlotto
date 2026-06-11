@@ -1,0 +1,66 @@
+[
+  {
+    "targetPeriod": 115000047,
+    "expectedDrawDate": "2026-06-11",
+    "lockedAt": "2026-06-11T20:15:48+08:00",
+    "basedOnPeriods": 1918,
+    "basedOnLastPeriod": 115000046,
+    "predictions": {
+      "frequency": {
+        "zone1": [
+          3,
+          4,
+          14,
+          15,
+          24,
+          38
+        ],
+        "zone2": 2,
+        "name": "頻率法",
+        "desc": "歷史出現頻率最高的號碼"
+      },
+      "overdue": {
+        "zone1": [
+          4,
+          10,
+          11,
+          16,
+          18,
+          37
+        ],
+        "zone2": 7,
+        "name": "冷號回補法",
+        "desc": "遺漏期數最久、理論上「該開」的號碼"
+      },
+      "recent": {
+        "zone1": [
+          9,
+          14,
+          29,
+          34,
+          35,
+          38
+        ],
+        "zone2": 5,
+        "name": "近期趨勢法",
+        "desc": "最近 50 期最常開出的號碼"
+      },
+      "mixed": {
+        "zone1": [
+          9,
+          14,
+          29,
+          34,
+          35,
+          38
+        ],
+        "zone2": 5,
+        "name": "加權混合法",
+        "desc": "歷史頻率(60%) + 近期趨勢(40%) 加權混合"
+      }
+    },
+    "actual": null,
+    "results": null,
+    "verified": false
+  }
+]

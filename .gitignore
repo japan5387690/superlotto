@@ -1,4 +1,6 @@
 __pycache__/
 *.pyc
 fetch.log
+*.log
+preview.png
 .DS_Store
