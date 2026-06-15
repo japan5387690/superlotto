@@ -55,31 +55,84 @@ def main():
     else:
         log = []
 
-    # 若該期預測已存在，不重複鎖定（保持原始時間戳，避免事後竄改）
-    existing = next((e for e in log if e["targetPeriod"] == next_period), None)
-    if existing:
-        print(f"第 {next_period} 期預測已鎖定於 {existing['lockedAt']}，跳過。")
-        print(f"（如需重新預測，請先確認該期尚未開獎）")
-        return
+    draw_map = {d["period"]: d for d in draws}
+    now_ts = datetime.now(TPE).isoformat(timespec="seconds")
 
-    # 用目前所有資料預測下期
-    preds = predict_strategies(draws)
-
-    entry = {
-        "targetPeriod": next_period,
-        "expectedDrawDate": next_date,
-        "lockedAt": datetime.now(TPE).isoformat(timespec="seconds"),
-        "basedOnPeriods": len(draws),
-        "basedOnLastPeriod": last["period"],
-        "predictions": {
+    def build_predictions(preds_dict):
+        """把策略結果包成 predictions 區塊（含名稱、說明）。"""
+        return {
             k: {
                 "zone1": v["zone1"],
                 "zone2": v["zone2"],
                 "name": STRATEGY_NAMES[k],
                 "desc": STRATEGY_DESC[k],
             }
-            for k, v in preds.items()
-        },
+            for k, v in preds_dict.items()
+        }
+
+    # 用目前所有資料預測（基準＝截至最後一期，與原鎖定同一份資料）
+    preds = predict_strategies(draws)
+
+    # ============================================================
+    # 補鎖規則（誠實性核心）
+    # ------------------------------------------------------------
+    # 對「尚未開獎」的待驗證期數，若系統新增了策略（例如 EV 期望值最佳化），
+    # 自動補上缺漏的策略，蓋上『獨立的補鎖時間戳』並標記 _backfilledAt。
+    # 嚴格條件：
+    #   1) entry 必須 verified=False（未驗證）
+    #   2) 該期『尚未』出現在 draws.json（亦即尚未開獎）
+    # 只要該期已開獎，一律凍結、絕不竄改——維持「先鎖定、後開獎」的誠實閉環。
+    # ============================================================
+    backfilled_total = 0
+    for entry in log:
+        if entry.get("verified"):
+            continue  # 已驗證（已開獎）→ 凍結
+        if entry["targetPeriod"] in draw_map:
+            continue  # 已開獎、待 verify → 視為凍結，交給 verify.py，不補鎖
+        existing_preds = entry.get("predictions", {})
+        missing = [k for k in preds if k not in existing_preds]
+        if not missing:
+            continue
+        new_block = build_predictions({k: preds[k] for k in missing})
+        for k, v in new_block.items():
+            v["_backfilledAt"] = now_ts                       # 後補時間戳（與原鎖定區隔）
+            v["_backfilledBasedOnLastPeriod"] = last["period"]
+        existing_preds.update(new_block)
+        entry["predictions"] = existing_preds
+        entry.setdefault("backfillLog", []).append({
+            "at": now_ts,
+            "addedStrategies": missing,
+            "basedOnLastPeriod": last["period"],
+        })
+        backfilled_total += len(missing)
+        names = "、".join(STRATEGY_NAMES[k] for k in missing)
+        print(f"🔁 第 {entry['targetPeriod']} 期補鎖 {len(missing)} 個新策略：{names}"
+              f"（該期尚未開獎，誠實補鎖，蓋獨立時間戳 {now_ts}）")
+        for k in missing:
+            print(f"   [{STRATEGY_NAMES[k]}] {preds[k]['zone1']} + {preds[k]['zone2']}")
+
+    # ============================================================
+    # 新鎖規則：若『下一期』尚無任何鎖定紀錄，建立完整 entry
+    # ============================================================
+    existing = next((e for e in log if e["targetPeriod"] == next_period), None)
+    if existing:
+        if backfilled_total:
+            log.sort(key=lambda e: e["targetPeriod"])
+            with open(LOG_FILE, "w", encoding="utf-8") as f:
+                json.dump(log, f, ensure_ascii=False, indent=2)
+            print(f"\n✅ 已補鎖 {backfilled_total} 筆策略並更新 {LOG_FILE}")
+        else:
+            print(f"第 {next_period} 期預測已鎖定於 {existing['lockedAt']}，"
+                  f"且策略完整、無缺漏，跳過。")
+        return
+
+    entry = {
+        "targetPeriod": next_period,
+        "expectedDrawDate": next_date,
+        "lockedAt": now_ts,
+        "basedOnPeriods": len(draws),
+        "basedOnLastPeriod": last["period"],
+        "predictions": build_predictions(preds),
         "actual": None,      # 開獎後由 verify.py 填入
         "results": None,     # 開獎後由 verify.py 填入
         "verified": False,

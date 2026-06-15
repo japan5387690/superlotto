@@ -257,10 +257,34 @@
         "zone2": 5,
         "name": "加權混合法",
         "desc": "歷史頻率(60%) + 近期趨勢(40%) 加權混合"
+      },
+      "ev_optimized": {
+        "zone1": [
+          14,
+          17,
+          21,
+          27,
+          34,
+          37
+        ],
+        "zone2": 6,
+        "name": "期望值最佳化",
+        "desc": "不提高中獎率（不可能），而是避開大眾愛選的號碼，讓萬一中獎時需平分的人數最少、獨得期望獎金最高",
+        "_backfilledAt": "2026-06-15T23:02:15+08:00",
+        "_backfilledBasedOnLastPeriod": 115000048
       }
     },
     "actual": null,
     "results": null,
-    "verified": false
+    "verified": false,
+    "backfillLog": [
+      {
+        "at": "2026-06-15T23:02:15+08:00",
+        "addedStrategies": [
+          "ev_optimized"
+        ],
+        "basedOnLastPeriod": 115000048
+      }
+    ]
   }
 ]

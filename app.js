@@ -195,8 +195,11 @@ function sectionLockedPrediction() {
     .map(([k, p]) => {
       const z1 = p.zone1.map((n) => ball(n, "z1", true)).join("");
       const z2 = ball(p.zone2, "z2", true);
+      const bf = p._backfilledAt
+        ? `<div class="bf-badge" title="此策略在原鎖定後新增，於該期開獎前補鎖、蓋獨立時間戳，未竄改其他預測">🔁 後補鎖定 ${p._backfilledAt.replace("T", " ").slice(11, 16)}</div>`
+        : "";
       return `<div class="pred-card">
-        <div class="tag">${p.name}</div>
+        <div class="tag">${p.name}${bf}</div>
         <div class="balls" style="margin-top:8px">${z1}<span class="plus" style="font-size:1.1rem">+</span>${z2}</div>
       </div>`;
     })
