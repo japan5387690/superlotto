@@ -7,6 +7,29 @@
   },
   "strategies": [
     {
+      "strategy": "ev_optimized",
+      "name": "期望值最佳化",
+      "desc": "不提高中獎率（不可能），而是避開大眾愛選的號碼，讓萬一中獎時需平分的人數最少、獨得期望獎金最高",
+      "tested": 1820,
+      "anyPrizeCount": 303,
+      "anyPrizeRate": 16.65,
+      "avgZone1Hit": 0.951,
+      "zone2HitRate": 13.02,
+      "prizeCounts": {
+        "陸獎": 3,
+        "柒獎": 10,
+        "捌獎": 38,
+        "玖獎": 252
+      },
+      "z1HitDist": {
+        "0": 602,
+        "1": 785,
+        "2": 357,
+        "3": 73,
+        "4": 3
+      }
+    },
+    {
       "strategy": "mixed",
       "name": "加權混合法",
       "desc": "歷史頻率(60%) + 近期趨勢(40%) 加權混合",

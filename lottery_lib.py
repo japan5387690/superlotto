@@ -6,6 +6,7 @@
 
 威力彩規則：第一區 1-38 選 6，第二區 1-8 選 1。
 """
+import random as _rnd
 from collections import Counter
 
 ZONE1_MAX = 38
@@ -17,13 +18,85 @@ STRATEGY_NAMES = {
     "overdue": "冷號回補法",
     "recent": "近期趨勢法",
     "mixed": "加權混合法",
+    "ev_optimized": "期望值最佳化",
 }
 STRATEGY_DESC = {
     "frequency": "歷史出現頻率最高的號碼",
     "overdue": "遺漏期數最久、理論上「該開」的號碼",
     "recent": f"最近 {RECENT_WINDOW} 期最常開出的號碼",
     "mixed": "歷史頻率(60%) + 近期趨勢(40%) 加權混合",
+    "ev_optimized": "不提高中獎率（不可能），而是避開大眾愛選的號碼，"
+                    "讓萬一中獎時需平分的人數最少、獨得期望獎金最高",
 }
+
+
+# ============ 期望值最佳化（EV）策略 ============
+# 數學事實：每組號碼的中獎機率完全相同（球是獨立隨機）。無法提高命中率。
+# 但威力彩頭獎是「均分制」——中獎人越多，每人分越少。
+# 因此唯一數學上合法的優化是：避開大眾愛選的熱門組合，
+# 讓你萬一中大獎時不必跟太多人平分，提高「獨得期望獎金」。
+#
+# 大眾選號偏好（依 Henze & Riedwyl《How to Win More》等彩券行為研究）：
+#   1. 生日數：1–31（尤其 1–12 可當月份）被嚴重超選
+#   2. 連號序列（1-2-3-4-5-6 之類）
+#   3. 低和值（因為愛選小號，總和偏低）
+#   4. 同十位數聚集、全奇或全偶等「看起來規律」的組合
+# 把這些 pattern 全避開，就是「最不熱門」的反人群組合。
+
+def popularity_penalty(combo):
+    """估計一組第一區號碼被『大眾選中』的熱門程度。越高代表越多人選
+    （中獎要分更多人）。EV 策略要最小化這個值。"""
+    c = sorted(combo)
+    pen = 0.0
+    for n in c:
+        if n <= 31:
+            pen += 1.0          # 生日日期範圍，大眾愛選
+        if n <= 12:
+            pen += 0.6          # 又可當月份，更熱門
+    for a, b in zip(c, c[1:]):
+        if b - a == 1:
+            pen += 2.0          # 連號是大眾最愛的 pattern
+        elif b - a == 2:
+            pen += 0.4          # 等差小間距也偏熱
+    total = sum(c)
+    if total < 117:             # 大眾偏好低和值（理論期望約 117）
+        pen += (117 - total) / 15.0
+    decades = Counter(n // 10 for n in c)
+    pen += sum(v - 1 for v in decades.values() if v > 2) * 0.8  # 同十位聚集
+    odd = sum(1 for n in c if n % 2)
+    if odd in (0, 6):
+        pen += 1.0              # 全奇或全偶
+    return pen
+
+
+_EV_Z1_CACHE = None
+
+
+def best_unpopular_zone1(samples=40000, seed=42):
+    """全域搜尋『最不熱門』的第一區 6 碼組合（與歷史無關，只反大眾心理）。
+    結果快取，backtest 逐期呼叫不會變慢。"""
+    global _EV_Z1_CACHE
+    if _EV_Z1_CACHE is not None:
+        return _EV_Z1_CACHE
+    rng = _rnd.Random(seed)
+    best, best_pen = None, 1e9
+    for _ in range(samples):
+        combo = rng.sample(range(1, ZONE1_MAX + 1), 6)
+        pen = popularity_penalty(combo)
+        if pen < best_pen:
+            best_pen, best = pen, sorted(combo)
+    _EV_Z1_CACHE = best
+    return best
+
+
+def ev_optimized_pick(history):
+    """EV 策略選號：第一區=全域最不熱門組合；第二區=歷史最冷號
+    （機率相同，但中獎時分的人最少）。"""
+    z1 = best_unpopular_zone1()
+    z2c = _zone2_counter(history) if history else Counter()
+    # 第二區取歷史出現最少的號（tie 取最小），分獎人數期望最低
+    z2 = min(range(1, ZONE2_MAX + 1), key=lambda n: (z2c.get(n, 0), n))
+    return {"zone1": list(z1), "zone2": z2}
 
 
 def _zone1_counter(history):
@@ -102,6 +175,7 @@ def predict_strategies(history):
         "overdue": {"zone1": overdue_z1, "zone2": overdue_z2},
         "recent": {"zone1": recent_z1, "zone2": recent_z2},
         "mixed": {"zone1": mix_z1, "zone2": mix_z2},
+        "ev_optimized": ev_optimized_pick(history),
     }
 
 

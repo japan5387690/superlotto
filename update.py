@@ -21,6 +21,7 @@ import os
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 NO_PUSH = "--no-push" in sys.argv
+NO_DEEP = "--no-deep" in sys.argv  # 跳過深度學習回測（GPU 較慢）
 
 
 def run(cmd, desc):
@@ -46,6 +47,13 @@ def main():
 
     # 4. 重跑歷史回測
     run("python3 backtest.py", "重跑歷史回測")
+
+    # 4b. 深度學習回測（LSTM + Transformer，GPU walk-forward）
+    if NO_DEEP:
+        print("\n--no-deep：跳過深度學習回測。")
+    else:
+        run("python3 backtest_deep.py --periods 700 --retrain 35 --epochs 30",
+            "深度學習回測（LSTM + Transformer）")
 
     # 5. 鎖定下一期預測
     run("python3 predict_next.py", "鎖定下期預測")

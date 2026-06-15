@@ -139,6 +139,15 @@ strategy_mix = {
     "zone2": mix_z2,
     "desc": "歷史頻率(60%) + 近期趨勢(40%) 加權混合",
 }
+# 策略 E: 期望值最佳化 (避開大眾熱門組合, 降低分獎人數, 提高獨得期望獎金)
+from lottery_lib import ev_optimized_pick, popularity_penalty
+_ev = ev_optimized_pick(draws)
+strategy_ev = {
+    "zone1": _ev["zone1"],
+    "zone2": _ev["zone2"],
+    "desc": "避開大眾愛選的生日數/連號/低和值，中獎時分的人最少",
+    "popPenalty": round(popularity_penalty(_ev["zone1"]), 2),
+}
 
 result = {
     "meta": {
@@ -175,6 +184,7 @@ result = {
         "overdue": strategy_overdue,
         "recent": strategy_recent,
         "mixed": strategy_mix,
+        "ev_optimized": strategy_ev,
     },
 }
 

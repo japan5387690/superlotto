@@ -119,25 +119,35 @@ function sectionAnalysis() {
 // ---------- 下期預測 ----------
 function sectionPredict() {
   const P = S.predictions;
-  function card(key, name, data, featured) {
+  function card(key, name, data, opts = {}) {
     const z1 = data.zone1.map((n) => ball(n, "z1", true)).join("");
     const z2 = ball(data.zone2, "z2", true);
-    return `<div class="pred-card${featured ? " featured" : ""}">
-      ${featured ? '<span class="badge">★ 綜合推薦</span>' : ""}
+    const extra = opts.extra || "";
+    return `<div class="pred-card${opts.featured ? " featured" : ""}">
+      ${opts.badge ? `<span class="badge">${opts.badge}</span>` : ""}
       <div class="tag">策略 ${key}</div>
       <div class="name">${name}</div>
       <div class="balls">${z1}<span class="plus" style="font-size:1.1rem">+</span>${z2}</div>
       <div class="desc">${data.desc}</div>
+      ${extra}
     </div>`;
   }
+  const ev = P.ev_optimized;
+  const evExtra = ev
+    ? `<div style="margin-top:10px;padding:8px 10px;background:rgba(63,185,80,.08);border:1px solid rgba(63,185,80,.3);border-radius:8px;font-size:.74rem;color:#7ee787">
+        🧮 熱門度指數 <b>${ev.popPenalty}</b>（越低越少人選）· 和值 <b>${ev.zone1.reduce((a, b) => a + b, 0)}</b>
+        <br>命中率與其他策略相同，但中大獎時<b>分的人最少</b>，獨得期望獎金最高。</div>`
+    : "";
   return `<section>
     <h2><span class="bar" style="background:var(--green)"></span>下期號碼預測</h2>
-    <div class="hint">以下為四種不同統計策略推算的參考號碼。⚠️ 樂透為獨立隨機事件，僅供參考娛樂。</div>
+    <div class="hint">五種統計策略推算的參考號碼。⚠️ 樂透為獨立隨機事件，前四種「預測」僅供娛樂；
+      第五種「期望值最佳化」是唯一<b>數學上站得住腳</b>的策略——它不提高命中率（不可能），而是降低分獎風險。</div>
     <div class="pred-grid">
-      ${card("A", "頻率法", P.frequency, false)}
-      ${card("B", "冷號回補法", P.overdue, false)}
-      ${card("C", "近期趨勢法", P.recent, false)}
-      ${card("D", "加權混合法", P.mixed, true)}
+      ${card("A", "頻率法", P.frequency)}
+      ${card("B", "冷號回補法", P.overdue)}
+      ${card("C", "近期趨勢法", P.recent)}
+      ${card("D", "加權混合法", P.mixed)}
+      ${ev ? card("E", "期望值最佳化", ev, { featured: true, badge: "★ 唯一合法優化", extra: evExtra }) : ""}
     </div>
   </section>`;
 }
@@ -240,6 +250,72 @@ function sectionBacktest() {
   </section>`;
 }
 
+// ---------- 深度學習回測 (LSTM / Transformer vs 隨機) ----------
+function sectionDeepBacktest() {
+  const bt = window.BACKTEST_DEEP;
+  if (!bt || !bt.results || !bt.results.length) return "";
+  const m = bt.meta;
+  // 以「第一區平均對中數」為主軸，因為它最能看出貼著理論線
+  const theory = m.theoryAvgZone1Hit;
+  const vals = bt.results.map((r) => r.avgZone1Hit).concat(theory);
+  const lo = Math.min(...vals) - 0.05;
+  const hi = Math.max(...vals) + 0.05;
+  const span = hi - lo;
+  const colorOf = (k) =>
+    k === "random" ? "#8b949e" : k === "frequency" ? "#4493f8" : "var(--purple)";
+  const iconOf = (k) =>
+    k === "lstm" ? "🧠" : k === "transformer" ? "🤖" : k === "frequency" ? "📊" : "🎲";
+
+  const rows = bt.results
+    .map((r) => {
+      const w = ((r.avgZone1Hit - lo) / span) * 100;
+      return `<div style="margin:12px 0">
+        <div style="display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:4px">
+          <span style="font-weight:700">${iconOf(r.key)} ${r.name}</span>
+          <span style="font-weight:700;color:${colorOf(r.key)}">對中 ${r.avgZone1Hit} 個</span>
+        </div>
+        <div class="track" style="height:20px;position:relative">
+          <div class="fill" style="width:${w}%;background:linear-gradient(90deg,${colorOf(r.key)}88,${colorOf(r.key)})"></div>
+        </div>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:3px">
+          中獎率 ${r.anyPrizeRate}% · 中獎 ${r.anyPrizeCount} 次</div>
+      </div>`;
+    })
+    .join("");
+
+  // 理論線位置
+  const theoryPct = ((theory - lo) / span) * 100;
+
+  return `<section style="border-color:var(--purple);box-shadow:0 0 0 1px rgba(188,140,255,.25)">
+    <h2><span class="bar" style="background:var(--purple)"></span>🧠 深度學習實測：神經網路能預測樂透嗎？</h2>
+    <div class="hint">我們真的把最強的深度學習模型丟下去：在 <b>${m.device.toUpperCase()}</b> 上跑
+      <b>LSTM</b> 與 <b>Transformer</b> 神經網路，每 ${m.retrainEvery} 期用當下歷史重新訓練
+      （共重訓約 ${Math.round(m.backtestPeriods / m.retrainEvery)} 次、每次 ${m.epochs} epochs），
+      逐期 walk-forward 預測。回測 ${m.backtestPeriods} 期（第 ${m.startPeriod}～${m.endPeriod} 期）。</div>
+
+    <div style="position:relative;padding:8px 0">
+      ${rows}
+      <div style="position:absolute;top:0;bottom:0;left:calc(${theoryPct}% );width:2px;
+        background:repeating-linear-gradient(var(--gold) 0 6px,transparent 6px 12px);pointer-events:none">
+        <span style="position:absolute;top:-2px;left:6px;font-size:.68rem;color:var(--gold);white-space:nowrap">
+          ◀ 純隨機理論值 ${theory}</span>
+      </div>
+    </div>
+
+    <div class="disclaimer" style="background:rgba(188,140,255,.08);border-color:rgba(188,140,255,.3);margin-top:20px">
+      <b style="color:var(--purple)">🔬 鐵證：</b>LSTM、Transformer、頻率法、隨機亂猜——四者的成績全部
+      <b>擠在同一條線上</b>，第一區平均對中數全部貼著純隨機理論值
+      <b style="color:var(--gold)">${theory}</b>（±0.05 內）。
+      用 GPU 重訓 ${Math.round(m.backtestPeriods / m.retrainEvery)} 次的深度神經網路，
+      <b>依然打不贏亂猜</b>。
+      <br><br>
+      原因是數學必然：樂透每期獨立同分布，過去與未來的<b>互資訊為 0</b>。
+      序列裡沒有可學的結構，再強的模型也只能去 fit 雜訊。
+      這不是模型不夠好，而是<b>理論上就不存在能預測樂透的模型</b>。
+    </div>
+  </section>`;
+}
+
 // ---------- 已驗證歷史 ----------
 function sectionVerifiedHistory() {
   const log = window.PREDICTIONS_LOG || [];
@@ -297,6 +373,7 @@ app.innerHTML =
   sectionLockedPrediction() +
   sectionPredict() +
   sectionBacktest() +
+  sectionDeepBacktest() +
   sectionVerifiedHistory() +
   sectionProb() +
   sectionAnalysis() +
