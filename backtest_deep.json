@@ -1,8 +1,8 @@
 {
   "meta": {
     "backtestPeriods": 700,
-    "startPeriod": 108000079,
-    "endPeriod": 115000048,
+    "startPeriod": 108000080,
+    "endPeriod": 115000049,
     "seqLen": 20,
     "retrainEvery": 35,
     "epochs": 30,
@@ -16,22 +16,22 @@
       "name": "LSTM 神經網路",
       "desc": "雙層 LSTM 時序模型，用過去 20 期序列學習下期號碼分布",
       "tested": 700,
-      "anyPrizeCount": 114,
-      "anyPrizeRate": 16.29,
-      "avgZone1Hit": 0.959,
-      "zone2HitRate": 12.0,
+      "anyPrizeCount": 122,
+      "anyPrizeRate": 17.43,
+      "avgZone1Hit": 0.96,
+      "zone2HitRate": 13.14,
       "prizeCounts": {
-        "陸獎": 3,
-        "柒獎": 3,
-        "捌獎": 12,
-        "玖獎": 96
+        "陸獎": 2,
+        "柒獎": 2,
+        "捌獎": 14,
+        "玖獎": 104
       },
       "z1HitDist": {
-        "0": 229,
-        "1": 307,
-        "2": 131,
+        "0": 231,
+        "1": 300,
+        "2": 137,
         "3": 30,
-        "4": 3
+        "4": 2
       }
     },
     {
@@ -39,23 +39,22 @@
       "name": "Transformer 神經網路",
       "desc": "Transformer 自注意力模型，用過去 20 期序列學習下期號碼分布",
       "tested": 700,
-      "anyPrizeCount": 120,
-      "anyPrizeRate": 17.14,
-      "avgZone1Hit": 0.916,
-      "zone2HitRate": 13.86,
+      "anyPrizeCount": 103,
+      "anyPrizeRate": 14.71,
+      "avgZone1Hit": 0.946,
+      "zone2HitRate": 12.43,
       "prizeCounts": {
-        "伍獎": 1,
         "陸獎": 2,
-        "柒獎": 7,
-        "捌獎": 15,
-        "玖獎": 95
+        "柒獎": 6,
+        "捌獎": 21,
+        "玖獎": 74
       },
       "z1HitDist": {
-        "0": 248,
-        "1": 297,
-        "2": 124,
-        "3": 28,
-        "4": 3
+        "0": 225,
+        "1": 312,
+        "2": 141,
+        "3": 20,
+        "4": 2
       }
     },
     {
@@ -65,7 +64,7 @@
       "tested": 700,
       "anyPrizeCount": 118,
       "anyPrizeRate": 16.86,
-      "avgZone1Hit": 0.946,
+      "avgZone1Hit": 0.947,
       "zone2HitRate": 14.29,
       "prizeCounts": {
         "肆獎": 1,
@@ -74,8 +73,8 @@
         "玖獎": 97
       },
       "z1HitDist": {
-        "0": 224,
-        "1": 313,
+        "0": 223,
+        "1": 314,
         "2": 142,
         "3": 20,
         "5": 1
@@ -86,22 +85,20 @@
       "name": "隨機亂猜（理論基準）",
       "desc": "每期完全隨機選號（理論下限基準）",
       "tested": 700,
-      "anyPrizeCount": 110,
-      "anyPrizeRate": 15.71,
-      "avgZone1Hit": 0.906,
-      "zone2HitRate": 12.43,
+      "anyPrizeCount": 90,
+      "anyPrizeRate": 12.86,
+      "avgZone1Hit": 0.907,
+      "zone2HitRate": 10.57,
       "prizeCounts": {
-        "陸獎": 2,
-        "柒獎": 2,
-        "捌獎": 18,
-        "玖獎": 88
+        "柒獎": 3,
+        "捌獎": 10,
+        "玖獎": 77
       },
       "z1HitDist": {
         "0": 238,
-        "1": 317,
-        "2": 120,
-        "3": 23,
-        "4": 2
+        "1": 308,
+        "2": 135,
+        "3": 19
       }
     }
   ]

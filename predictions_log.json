@@ -274,9 +274,51 @@
         "_backfilledBasedOnLastPeriod": 115000048
       }
     },
-    "actual": null,
-    "results": null,
-    "verified": false,
+    "actual": {
+      "zone1": [
+        2,
+        8,
+        9,
+        15,
+        18,
+        23
+      ],
+      "zone2": 4,
+      "date": "2026-06-18"
+    },
+    "results": {
+      "frequency": {
+        "m1": 1,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      },
+      "overdue": {
+        "m1": 1,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      },
+      "recent": {
+        "m1": 1,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      },
+      "mixed": {
+        "m1": 1,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      },
+      "ev_optimized": {
+        "m1": 0,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      }
+    },
+    "verified": true,
     "backfillLog": [
       {
         "at": "2026-06-15T23:02:15+08:00",
@@ -286,5 +328,82 @@
         "basedOnLastPeriod": 115000048
       }
     ]
+  },
+  {
+    "targetPeriod": 115000050,
+    "expectedDrawDate": "2026-06-22",
+    "lockedAt": "2026-06-18T22:03:11+08:00",
+    "basedOnPeriods": 1921,
+    "basedOnLastPeriod": 115000049,
+    "predictions": {
+      "frequency": {
+        "zone1": [
+          3,
+          4,
+          14,
+          15,
+          24,
+          38
+        ],
+        "zone2": 2,
+        "name": "頻率法",
+        "desc": "歷史出現頻率最高的號碼"
+      },
+      "overdue": {
+        "zone1": [
+          10,
+          11,
+          13,
+          16,
+          27,
+          37
+        ],
+        "zone2": 7,
+        "name": "冷號回補法",
+        "desc": "遺漏期數最久、理論上「該開」的號碼"
+      },
+      "recent": {
+        "zone1": [
+          9,
+          14,
+          25,
+          34,
+          35,
+          38
+        ],
+        "zone2": 5,
+        "name": "近期趨勢法",
+        "desc": "最近 50 期最常開出的號碼"
+      },
+      "mixed": {
+        "zone1": [
+          9,
+          14,
+          29,
+          34,
+          35,
+          38
+        ],
+        "zone2": 5,
+        "name": "加權混合法",
+        "desc": "歷史頻率(60%) + 近期趨勢(40%) 加權混合"
+      },
+      "ev_optimized": {
+        "zone1": [
+          14,
+          17,
+          21,
+          27,
+          34,
+          37
+        ],
+        "zone2": 6,
+        "name": "期望值最佳化",
+        "desc": "不提高中獎率（不可能），而是避開大眾愛選的號碼，讓萬一中獎時需平分的人數最少、獨得期望獎金最高"
+      }
+    },
+    "actual": null,
+    "results": null,
+    "verified": false
   }
 ]
