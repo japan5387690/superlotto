@@ -402,6 +402,125 @@
         "desc": "不提高中獎率（不可能），而是避開大眾愛選的號碼，讓萬一中獎時需平分的人數最少、獨得期望獎金最高"
       }
     },
+    "actual": {
+      "zone1": [
+        11,
+        13,
+        18,
+        19,
+        21,
+        24
+      ],
+      "zone2": 7,
+      "date": "2026-06-22"
+    },
+    "results": {
+      "frequency": {
+        "m1": 1,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      },
+      "overdue": {
+        "m1": 2,
+        "m2": 1,
+        "prize": "捌獎",
+        "hit": true
+      },
+      "recent": {
+        "m1": 0,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      },
+      "mixed": {
+        "m1": 0,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      },
+      "ev_optimized": {
+        "m1": 1,
+        "m2": 0,
+        "prize": null,
+        "hit": false
+      }
+    },
+    "verified": true
+  },
+  {
+    "targetPeriod": 115000051,
+    "expectedDrawDate": "2026-06-25",
+    "lockedAt": "2026-06-22T22:03:39+08:00",
+    "basedOnPeriods": 1922,
+    "basedOnLastPeriod": 115000050,
+    "predictions": {
+      "frequency": {
+        "zone1": [
+          3,
+          4,
+          14,
+          15,
+          24,
+          38
+        ],
+        "zone2": 2,
+        "name": "頻率法",
+        "desc": "歷史出現頻率最高的號碼"
+      },
+      "overdue": {
+        "zone1": [
+          10,
+          16,
+          27,
+          30,
+          32,
+          37
+        ],
+        "zone2": 1,
+        "name": "冷號回補法",
+        "desc": "遺漏期數最久、理論上「該開」的號碼"
+      },
+      "recent": {
+        "zone1": [
+          9,
+          14,
+          25,
+          34,
+          35,
+          38
+        ],
+        "zone2": 5,
+        "name": "近期趨勢法",
+        "desc": "最近 50 期最常開出的號碼"
+      },
+      "mixed": {
+        "zone1": [
+          9,
+          14,
+          29,
+          34,
+          35,
+          38
+        ],
+        "zone2": 5,
+        "name": "加權混合法",
+        "desc": "歷史頻率(60%) + 近期趨勢(40%) 加權混合"
+      },
+      "ev_optimized": {
+        "zone1": [
+          14,
+          17,
+          21,
+          27,
+          34,
+          37
+        ],
+        "zone2": 6,
+        "name": "期望值最佳化",
+        "desc": "不提高中獎率（不可能），而是避開大眾愛選的號碼，讓萬一中獎時需平分的人數最少、獨得期望獎金最高"
+      }
+    },
     "actual": null,
     "results": null,
     "verified": false

@@ -1,341 +1,341 @@
 {
   "meta": {
-    "totalDraws": 1921,
+    "totalDraws": 1922,
     "firstPeriod": 97000001,
     "firstDate": "2008-01-24",
-    "lastPeriod": 115000049,
-    "lastDate": "2026-06-18",
+    "lastPeriod": 115000050,
+    "lastDate": "2026-06-22",
     "zone1Theory": 15.79,
     "zone2Theory": 12.5,
     "lastDraw": {
-      "period": 115000049,
+      "period": 115000050,
       "zone1": [
-        2,
-        8,
-        9,
-        15,
+        11,
+        13,
         18,
-        23
+        19,
+        21,
+        24
       ],
-      "zone2": 4
+      "zone2": 7
     }
   },
   "zone1": [
     {
       "num": 1,
       "count": 311,
-      "prob": 16.19,
+      "prob": 16.18,
       "ballProb": 2.7,
-      "lastGap": 6
+      "lastGap": 7
     },
     {
       "num": 2,
       "count": 279,
       "prob": 14.52,
       "ballProb": 2.42,
-      "lastGap": 0
+      "lastGap": 1
     },
     {
       "num": 3,
       "count": 330,
-      "prob": 17.18,
+      "prob": 17.17,
       "ballProb": 2.86,
-      "lastGap": 5
+      "lastGap": 6
     },
     {
       "num": 4,
       "count": 321,
-      "prob": 16.71,
-      "ballProb": 2.79,
-      "lastGap": 1
+      "prob": 16.7,
+      "ballProb": 2.78,
+      "lastGap": 2
     },
     {
       "num": 5,
       "count": 274,
       "prob": 14.26,
       "ballProb": 2.38,
-      "lastGap": 3
+      "lastGap": 4
     },
     {
       "num": 6,
       "count": 309,
-      "prob": 16.09,
+      "prob": 16.08,
       "ballProb": 2.68,
-      "lastGap": 8
+      "lastGap": 9
     },
     {
       "num": 7,
       "count": 318,
       "prob": 16.55,
       "ballProb": 2.76,
-      "lastGap": 2
+      "lastGap": 3
     },
     {
       "num": 8,
       "count": 310,
-      "prob": 16.14,
+      "prob": 16.13,
       "ballProb": 2.69,
-      "lastGap": 0
+      "lastGap": 1
     },
     {
       "num": 9,
       "count": 267,
-      "prob": 13.9,
+      "prob": 13.89,
       "ballProb": 2.32,
-      "lastGap": 0
+      "lastGap": 1
     },
     {
       "num": 10,
       "count": 307,
-      "prob": 15.98,
+      "prob": 15.97,
       "ballProb": 2.66,
-      "lastGap": 16
+      "lastGap": 17
     },
     {
       "num": 11,
-      "count": 303,
-      "prob": 15.77,
-      "ballProb": 2.63,
-      "lastGap": 18
+      "count": 304,
+      "prob": 15.82,
+      "ballProb": 2.64,
+      "lastGap": 0
     },
     {
       "num": 12,
       "count": 296,
-      "prob": 15.41,
+      "prob": 15.4,
       "ballProb": 2.57,
-      "lastGap": 4
+      "lastGap": 5
     },
     {
       "num": 13,
-      "count": 293,
-      "prob": 15.25,
-      "ballProb": 2.54,
-      "lastGap": 14
+      "count": 294,
+      "prob": 15.3,
+      "ballProb": 2.55,
+      "lastGap": 0
     },
     {
       "num": 14,
       "count": 326,
-      "prob": 16.97,
+      "prob": 16.96,
       "ballProb": 2.83,
-      "lastGap": 3
+      "lastGap": 4
     },
     {
       "num": 15,
       "count": 322,
-      "prob": 16.76,
+      "prob": 16.75,
       "ballProb": 2.79,
-      "lastGap": 0
+      "lastGap": 1
     },
     {
       "num": 16,
       "count": 314,
-      "prob": 16.35,
+      "prob": 16.34,
       "ballProb": 2.72,
-      "lastGap": 16
+      "lastGap": 17
     },
     {
       "num": 17,
       "count": 306,
-      "prob": 15.93,
+      "prob": 15.92,
       "ballProb": 2.65,
-      "lastGap": 1
+      "lastGap": 2
     },
     {
       "num": 18,
-      "count": 291,
-      "prob": 15.15,
-      "ballProb": 2.52,
+      "count": 292,
+      "prob": 15.19,
+      "ballProb": 2.53,
       "lastGap": 0
     },
     {
       "num": 19,
-      "count": 314,
-      "prob": 16.35,
-      "ballProb": 2.72,
-      "lastGap": 1
+      "count": 315,
+      "prob": 16.39,
+      "ballProb": 2.73,
+      "lastGap": 0
     },
     {
       "num": 20,
       "count": 302,
-      "prob": 15.72,
+      "prob": 15.71,
       "ballProb": 2.62,
-      "lastGap": 4
+      "lastGap": 5
     },
     {
       "num": 21,
-      "count": 290,
-      "prob": 15.1,
+      "count": 291,
+      "prob": 15.14,
       "ballProb": 2.52,
-      "lastGap": 7
+      "lastGap": 0
     },
     {
       "num": 22,
       "count": 316,
-      "prob": 16.45,
+      "prob": 16.44,
       "ballProb": 2.74,
-      "lastGap": 2
+      "lastGap": 3
     },
     {
       "num": 23,
       "count": 299,
       "prob": 15.56,
       "ballProb": 2.59,
-      "lastGap": 0
+      "lastGap": 1
     },
     {
       "num": 24,
-      "count": 337,
-      "prob": 17.54,
-      "ballProb": 2.92,
-      "lastGap": 2
+      "count": 338,
+      "prob": 17.59,
+      "ballProb": 2.93,
+      "lastGap": 0
     },
     {
       "num": 25,
       "count": 308,
-      "prob": 16.03,
+      "prob": 16.02,
       "ballProb": 2.67,
-      "lastGap": 1
+      "lastGap": 2
     },
     {
       "num": 26,
       "count": 312,
-      "prob": 16.24,
+      "prob": 16.23,
       "ballProb": 2.71,
-      "lastGap": 2
+      "lastGap": 3
     },
     {
       "num": 27,
       "count": 302,
-      "prob": 15.72,
+      "prob": 15.71,
       "ballProb": 2.62,
-      "lastGap": 14
+      "lastGap": 15
     },
     {
       "num": 28,
       "count": 290,
-      "prob": 15.1,
-      "ballProb": 2.52,
-      "lastGap": 1
+      "prob": 15.09,
+      "ballProb": 2.51,
+      "lastGap": 2
     },
     {
       "num": 29,
       "count": 312,
-      "prob": 16.24,
+      "prob": 16.23,
       "ballProb": 2.71,
-      "lastGap": 1
+      "lastGap": 2
     },
     {
       "num": 30,
       "count": 286,
-      "prob": 14.89,
+      "prob": 14.88,
       "ballProb": 2.48,
-      "lastGap": 14
+      "lastGap": 15
     },
     {
       "num": 31,
       "count": 300,
-      "prob": 15.62,
+      "prob": 15.61,
       "ballProb": 2.6,
-      "lastGap": 6
+      "lastGap": 7
     },
     {
       "num": 32,
       "count": 277,
-      "prob": 14.42,
+      "prob": 14.41,
       "ballProb": 2.4,
-      "lastGap": 13
+      "lastGap": 14
     },
     {
       "num": 33,
       "count": 286,
-      "prob": 14.89,
+      "prob": 14.88,
       "ballProb": 2.48,
-      "lastGap": 2
+      "lastGap": 3
     },
     {
       "num": 34,
       "count": 281,
-      "prob": 14.63,
+      "prob": 14.62,
       "ballProb": 2.44,
-      "lastGap": 6
+      "lastGap": 7
     },
     {
       "num": 35,
       "count": 302,
-      "prob": 15.72,
+      "prob": 15.71,
       "ballProb": 2.62,
-      "lastGap": 4
+      "lastGap": 5
     },
     {
       "num": 36,
       "count": 298,
-      "prob": 15.51,
-      "ballProb": 2.59,
-      "lastGap": 13
+      "prob": 15.5,
+      "ballProb": 2.58,
+      "lastGap": 14
     },
     {
       "num": 37,
       "count": 305,
-      "prob": 15.88,
-      "ballProb": 2.65,
-      "lastGap": 17
+      "prob": 15.87,
+      "ballProb": 2.64,
+      "lastGap": 18
     },
     {
       "num": 38,
       "count": 332,
-      "prob": 17.28,
+      "prob": 17.27,
       "ballProb": 2.88,
-      "lastGap": 3
+      "lastGap": 4
     }
   ],
   "zone2": [
     {
       "num": 1,
       "count": 227,
-      "prob": 11.82,
-      "lastGap": 8
+      "prob": 11.81,
+      "lastGap": 9
     },
     {
       "num": 2,
       "count": 271,
-      "prob": 14.11,
-      "lastGap": 4
+      "prob": 14.1,
+      "lastGap": 5
     },
     {
       "num": 3,
       "count": 239,
-      "prob": 12.44,
-      "lastGap": 6
+      "prob": 12.43,
+      "lastGap": 7
     },
     {
       "num": 4,
       "count": 249,
       "prob": 12.96,
-      "lastGap": 0
+      "lastGap": 1
     },
     {
       "num": 5,
       "count": 260,
       "prob": 13.53,
-      "lastGap": 3
+      "lastGap": 4
     },
     {
       "num": 6,
       "count": 220,
       "prob": 11.45,
-      "lastGap": 1
+      "lastGap": 2
     },
     {
       "num": 7,
-      "count": 225,
-      "prob": 11.71,
-      "lastGap": 38
+      "count": 226,
+      "prob": 11.76,
+      "lastGap": 0
     },
     {
       "num": 8,
       "count": 230,
       "prob": 11.97,
-      "lastGap": 2
+      "lastGap": 3
     }
   ],
   "analysis": {
@@ -359,13 +359,13 @@
     "coldZone2": 6,
     "overdueZone1": [
       10,
-      11,
-      13,
       16,
       27,
+      30,
+      32,
       37
     ],
-    "overdueZone2": 7,
+    "overdueZone2": 1,
     "recentHotZone1": [
       9,
       14,
@@ -381,14 +381,14 @@
       "1": 153,
       "2": 455,
       "3": 678,
-      "4": 441,
+      "4": 442,
       "5": 157,
       "6": 16
     },
     "bigSmallDist": {
       "0": 17,
       "1": 155,
-      "2": 466,
+      "2": 467,
       "3": 661,
       "4": 464,
       "5": 139,
@@ -411,13 +411,13 @@
     "overdue": {
       "zone1": [
         10,
-        11,
-        13,
         16,
         27,
+        30,
+        32,
         37
       ],
-      "zone2": 7,
+      "zone2": 1,
       "desc": "遺漏期數最久、理論上「該開」的號碼"
     },
     "recent": {

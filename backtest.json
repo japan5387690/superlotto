@@ -1,8 +1,8 @@
 {
   "meta": {
-    "backtestPeriods": 1821,
+    "backtestPeriods": 1822,
     "startPeriod": 98000003,
-    "endPeriod": 115000049,
+    "endPeriod": 115000050,
     "method": "Walk-forward：每期僅用該期之前的資料預測，無未來資訊洩漏"
   },
   "strategies": [
@@ -10,9 +10,9 @@
       "strategy": "ev_optimized",
       "name": "期望值最佳化",
       "desc": "不提高中獎率（不可能），而是避開大眾愛選的號碼，讓萬一中獎時需平分的人數最少、獨得期望獎金最高",
-      "tested": 1821,
+      "tested": 1822,
       "anyPrizeCount": 303,
-      "anyPrizeRate": 16.64,
+      "anyPrizeRate": 16.63,
       "avgZone1Hit": 0.95,
       "zone2HitRate": 13.01,
       "prizeCounts": {
@@ -23,7 +23,7 @@
       },
       "z1HitDist": {
         "0": 603,
-        "1": 785,
+        "1": 786,
         "2": 357,
         "3": 73,
         "4": 3
@@ -33,11 +33,11 @@
       "strategy": "mixed",
       "name": "加權混合法",
       "desc": "歷史頻率(60%) + 近期趨勢(40%) 加權混合",
-      "tested": 1821,
+      "tested": 1822,
       "anyPrizeCount": 299,
-      "anyPrizeRate": 16.42,
-      "avgZone1Hit": 0.943,
-      "zone2HitRate": 13.29,
+      "anyPrizeRate": 16.41,
+      "avgZone1Hit": 0.942,
+      "zone2HitRate": 13.28,
       "prizeCounts": {
         "陸獎": 3,
         "柒獎": 10,
@@ -45,7 +45,7 @@
         "玖獎": 230
       },
       "z1HitDist": {
-        "0": 605,
+        "0": 606,
         "1": 785,
         "2": 364,
         "3": 64,
@@ -56,11 +56,11 @@
       "strategy": "frequency",
       "name": "頻率法",
       "desc": "歷史出現頻率最高的號碼",
-      "tested": 1821,
+      "tested": 1822,
       "anyPrizeCount": 292,
-      "anyPrizeRate": 16.04,
+      "anyPrizeRate": 16.03,
       "avgZone1Hit": 0.945,
-      "zone2HitRate": 13.4,
+      "zone2HitRate": 13.39,
       "prizeCounts": {
         "肆獎": 1,
         "伍獎": 2,
@@ -71,7 +71,7 @@
       },
       "z1HitDist": {
         "0": 589,
-        "1": 808,
+        "1": 809,
         "2": 366,
         "3": 53,
         "4": 4,
@@ -82,21 +82,21 @@
       "strategy": "overdue",
       "name": "冷號回補法",
       "desc": "遺漏期數最久、理論上「該開」的號碼",
-      "tested": 1821,
-      "anyPrizeCount": 289,
-      "anyPrizeRate": 15.87,
-      "avgZone1Hit": 0.962,
-      "zone2HitRate": 12.74,
+      "tested": 1822,
+      "anyPrizeCount": 290,
+      "anyPrizeRate": 15.92,
+      "avgZone1Hit": 0.963,
+      "zone2HitRate": 12.79,
       "prizeCounts": {
         "陸獎": 2,
         "柒獎": 8,
-        "捌獎": 46,
+        "捌獎": 47,
         "玖獎": 233
       },
       "z1HitDist": {
         "0": 585,
         "1": 787,
-        "2": 384,
+        "2": 385,
         "3": 63,
         "4": 2
       }
@@ -105,11 +105,11 @@
       "strategy": "recent",
       "name": "近期趨勢法",
       "desc": "最近 50 期最常開出的號碼",
-      "tested": 1821,
+      "tested": 1822,
       "anyPrizeCount": 279,
-      "anyPrizeRate": 15.32,
-      "avgZone1Hit": 0.931,
-      "zone2HitRate": 12.47,
+      "anyPrizeRate": 15.31,
+      "avgZone1Hit": 0.93,
+      "zone2HitRate": 12.46,
       "prizeCounts": {
         "伍獎": 1,
         "陸獎": 1,
@@ -118,7 +118,7 @@
         "玖獎": 223
       },
       "z1HitDist": {
-        "0": 618,
+        "0": 619,
         "1": 776,
         "2": 364,
         "3": 61,
@@ -130,19 +130,19 @@
     "strategy": null,
     "name": "隨機亂猜",
     "desc": "每期隨機選號（對照基準）",
-    "tested": 1821,
-    "anyPrizeCount": 282,
-    "anyPrizeRate": 15.49,
+    "tested": 1822,
+    "anyPrizeCount": 283,
+    "anyPrizeRate": 15.53,
     "avgZone1Hit": 0.946,
-    "zone2HitRate": 12.03,
+    "zone2HitRate": 12.07,
     "prizeCounts": {
       "陸獎": 5,
       "柒獎": 8,
       "捌獎": 39,
-      "玖獎": 230
+      "玖獎": 231
     },
     "z1HitDist": {
-      "0": 584,
+      "0": 585,
       "1": 827,
       "2": 339,
       "3": 66,
